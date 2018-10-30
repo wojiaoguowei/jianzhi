@@ -205,6 +205,7 @@ public:
 		{
 			return;
 		}
+		//遍历一边字符串找出空格的数量
 		int nBlankCounts = 0;
 		for(int i = 0; i < length; i++)
 		{
@@ -214,6 +215,8 @@ public:
 			}
 		}
 
+		//字符串个数n OldLength老的
+		//nNewLength新的
 		int nOldLength = strlen(str);
 		int nNewLength = nOldLength + nBlankCounts * 2;
 		
@@ -222,7 +225,8 @@ public:
 			return;
 		}
 
-		
+		//nOldLength >= 0 字符从后往前复制字符
+		//nNewLength > nOldLength 新的pos撵上旧的pos
 		while(nOldLength >= 0 && nNewLength > nOldLength)
 		{
 			if(*(str + nOldLength) == ' ')
