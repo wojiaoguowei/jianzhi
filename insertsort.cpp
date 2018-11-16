@@ -13,26 +13,35 @@ copyright@wunaihualuo
 void insertSort(int arr[],int len);
 void test(int A[], int len)
 {
-	int tmp;
+	if(A == NULL || len <= 0)
+	{
+		return;
+	}
+		
 	for(int i = 1; i < len; i++)
 	{
-		for(int j = 0; j < i; j++)
+		int tmp = A[i];
+		int j;
+		for(j = i - 1; j >= 0; j--)
 		{
-			if(A[i] < A[j])
+			if(A[j] > tmp)
 			{
-				tmp = A[j];
-				A[j] = A[i];
-				A[i] = tmp;
+				A[j + 1] = A[j];
+			}
+			else
+			{
+				break;
 			}
 		}
+		
+		//比较j位置，数据填充到j+1的空位置
+		A[j + 1] = tmp;
 	}
 }
 
 int main(int argc, char *argv[])
 {
-    int arr[5]={
-        3,89,72,43,1
-    };
+    int arr[5]={3,89,72,43,1};
     test(arr,5);
     int i;
     for(i=0;i<5;i++){
