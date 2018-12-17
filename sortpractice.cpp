@@ -153,11 +153,25 @@ void InsertSort(int arr[], int len)
 	}
 }
 
+void BubleSortT(int arr[], int len)
+{
+	for(int i = 0; i < len - 1; ++i)
+	{
+		for(int j = 0; j < len - 1 - i; j++)
+		{
+			if(arr[j] > arr[j + 1])
+			{
+				swap(arr[j], arr[j + 1]);
+			}
+		}
+	}
+}
+
 int main()
 {
 	int arr[] = {8, 6, 4, 7, 9};
 	Print(arr, 5);
-	InsertSort(arr, 5);
+	BubleSortT(arr, 5);
 	Print(arr, 5);
 	
 	return 1;
