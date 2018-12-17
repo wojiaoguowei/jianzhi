@@ -155,7 +155,7 @@ void InsertSort(int arr[], int len)
 
 void BubleSortT(int arr[], int len)
 {
-	for(int i = 0; i < len - 1; ++i)
+	/*for(int i = 0; i < len - 1; ++i)
 	{
 		for(int j = 0; j < len - 1 - i; j++)
 		{
@@ -164,14 +164,64 @@ void BubleSortT(int arr[], int len)
 				swap(arr[j], arr[j + 1]);
 			}
 		}
+	}*/
+	
+	int low = 0;
+	int high = len - 1;
+	
+	while(low < high)
+	{
+		for(int i = low; i < high; ++i)
+		{
+			if(arr[i] > arr[i + 1])
+			{
+				swap(arr[i], arr[i + 1]);
+			}	
+		}
+		
+		high--;
+		
+		for(int j = high; j > low; j--)
+		{
+			if(arr[j] < arr[j - 1])
+			{
+				swap(arr[j], arr[j - 1]);
+			}
+		}
 	}
 }
+
+
+void InsertSortT(int arr[], int len)
+{
+	//从第二个元素开始比较
+	for(int i = 1; i < len; ++i)
+	{
+		int temp = arr[i];
+		int j = -1;
+		for(j = i - 1; j >= 0; --j)
+		{
+			if(arr[j] > temp)
+			{
+				arr[j + 1] = arr[j];
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+		arr[j + 1] = temp;
+	}
+}
+
+
 
 int main()
 {
 	int arr[] = {8, 6, 4, 7, 9};
 	Print(arr, 5);
-	BubleSortT(arr, 5);
+	InsertSortT(arr, 5);
 	Print(arr, 5);
 	
 	return 1;
