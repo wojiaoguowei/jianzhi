@@ -216,6 +216,39 @@ void InsertSortT(int arr[], int len)
 }
 
 
+  struct ListNode {
+      int val;
+      ListNode *next;
+      ListNode(int x) : val(x), next(NULL) {}
+  };
+ 
+  
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+		if(head == NULL || head->next == NULL)
+		{
+			return head;
+		}
+		
+		ListNode* p = head;
+		ListNode* q = p->next;
+		
+		head->next = NULL;
+		
+		while(q)
+		{
+			ListNode *pTmp = q->next;
+			q->next = p;
+			p = q;
+			q = pTmp;
+		}
+		
+		return p;
+        
+    }
+};
+
 
 int main()
 {
