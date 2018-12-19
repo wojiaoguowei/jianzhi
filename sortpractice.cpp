@@ -215,6 +215,35 @@ void InsertSortT(int arr[], int len)
 	}
 }
 
+//希尔排序
+void ShellSort(int ary[], int len)
+{
+    int i,j;
+    int increment = len;//增量
+    int key;
+    while(increment > 1)//最后在增量为1并且是执行了情况下停止。
+    {
+        increment = increment/3 + 1;//根据公式
+        //printf("increment:%d\n",increment);
+        for (i=increment;i<len;i++)//从[0]开始，对相距增量步长的元素集合进行修改。
+        {
+            key = ary[i];
+            //以下和直接插入排序类似。
+            j=i-increment;
+            while(j >= 0)
+            {
+                if (key < ary[j] )
+                {
+                    int temp = ary[j];
+                    ary[j] = key;
+                    ary[j+increment] = temp;
+                }
+                j=j-increment;
+            }
+        }
+    }
+}
+
 
   struct ListNode {
       int val;
@@ -223,7 +252,10 @@ void InsertSortT(int arr[], int len)
   };
  
   
-class Solution {
+  #include <string>
+  using namespace std;
+  
+/*class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
 		if(head == NULL || head->next == NULL)
@@ -247,15 +279,72 @@ public:
 		return p;
         
     }
+};*/
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) 
+	{
+        int len1 = haystack.size();
+		int len2 = needle.size();
+		if(len1 == 0)
+		{
+			return -1;
+		}
+		
+		if(len1 < len2)
+		{
+			return -1;
+		}
+		
+		if(len2 == 0)
+		{
+			return 0;
+		}
+		
+		int count = 0;
+		for(int i = 0; i <= len1; i++)
+		{	
+			int j = 0;
+			for( ; j < len2; j++)
+			{
+				
+				if(haystack[i + j] != needle[j])
+				{
+					count = 0;
+					break;
+				}
+				else
+				{
+					count++;
+					
+					if(count == len2)
+					{
+						return i;
+					}
+				}
+			}
+		}
+		
+		return -1;
+		
+    }
 };
 
 
 int main()
 {
-	int arr[] = {8, 6, 4, 7, 9};
+	int arr[] = {8, 6, 4, 7, 9, 5};
 	Print(arr, 5);
 	InsertSortT(arr, 5);
 	Print(arr, 5);
+	
+	ShellSort(arr, 6);
+	
+	Solution sol;
+	string str1 = "ababc";
+	string str2 = "abc";
+	sol.strStr(str1, str2);
 	
 	return 1;
 }
