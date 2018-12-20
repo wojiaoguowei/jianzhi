@@ -245,6 +245,89 @@ void ShellSort(int ary[], int len)
 }
 
 
+
+
+void ShellSortT(int arr[], int len)
+{
+	int increment = len;
+	
+	//间隔大于等于1
+	do
+	{
+		increment = increment / 3 + 1;
+		
+		for(int i = increment; i < len; i++)
+		{
+			int temp = arr[i];
+			
+			//从后面开始比较，间隔increment
+			int j = i - increment;
+			while(j >= 0)
+			{
+				if(temp < arr[j])
+				{
+					arr[j + increment] = arr[j];
+				}
+				else
+				{
+					break;
+				}
+				
+				j = j - increment;
+			}
+			
+			arr[j + increment] = temp;
+		}
+		
+
+	}while(increment > 1);
+}
+
+
+//选择排序
+void SelectSort(int arr[], int len)
+{
+	//最后一次遍历
+	for(int i = 0; i < len - 1; i++)
+	{
+		int minIndex = i;
+		for(int j = i + 1; j < len; j++)
+		{
+			if(arr[j] < arr[minIndex])
+			{
+				minIndex = j;
+			}
+		}
+		
+		if(arr[i] != arr[minIndex])
+		{
+			swap(arr[i], arr[minIndex]);			
+		}
+		
+	}
+}
+
+void SelectSortT(int arr[], int len)
+{
+	for(int i = 0; i < len - 1; i++)
+	{
+		int minIndex = i;
+		for(int j = i + 1; j < len; j++)
+		{
+			if(arr[minIndex] > arr[j])
+			{
+				minIndex = j;
+			}
+		}
+		
+		if(arr[i] != arr[minIndex])
+		{
+			swap(arr[i], arr[minIndex]);
+		}
+	}
+}
+
+
   struct ListNode {
       int val;
       ListNode *next;
@@ -336,7 +419,9 @@ int main()
 {
 	int arr[] = {8, 6, 4, 7, 9, 5};
 	Print(arr, 5);
-	InsertSortT(arr, 5);
+	//InsertSortT(arr, 5);
+	//SelectSortT(arr, 6);
+	ShellSortT(arr, 6);
 	Print(arr, 5);
 	
 	ShellSort(arr, 6);
