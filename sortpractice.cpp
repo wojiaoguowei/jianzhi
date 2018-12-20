@@ -328,6 +328,65 @@ void SelectSortT(int arr[], int len)
 }
 
 
+void Merge(int arr[], int left, int mid, int right, int temp[])
+{
+	int i = left;
+	int j = mid + 1;
+	int t = 0;
+	
+	while(i <= mid && j <= right)
+	{
+		if(arr[i] < arr[j])
+		{
+			temp[t++] = arr[i++];
+		}
+		else
+		{
+			temp[t++] = arr[j++];
+		}
+	}
+	
+	while(i <= mid)
+	{
+		temp[t++] = arr[i++];
+	}
+	
+	while(j <= right)
+	{
+		temp[t++] = arr[j++];
+	}
+	
+	t = 0;
+	while(left <= right)
+	{
+		arr[left++] = temp[t++];
+	}
+	
+}
+
+void Sort(int arr[], int left, int right, int temp[])
+{
+	if(left < right)
+	{
+		int mid = (left + right) / 2;
+		Sort(arr, left, mid, temp);	
+		Sort(arr, mid + 1, right, temp);
+		Merge(arr, left, mid, right, temp);
+	}
+}
+
+void MergeSort(int arr[], int len)
+{
+	if(len < 0)
+	{
+		return;
+	}
+	
+	int temp[6] = {0};
+	Sort(arr, 0, len - 1, temp);
+}
+
+
   struct ListNode {
       int val;
       ListNode *next;
@@ -418,11 +477,12 @@ public:
 int main()
 {
 	int arr[] = {8, 6, 4, 7, 9, 5};
-	Print(arr, 5);
+	Print(arr, 6);
 	//InsertSortT(arr, 5);
 	//SelectSortT(arr, 6);
-	ShellSortT(arr, 6);
-	Print(arr, 5);
+	//ShellSortT(arr, 6);
+	MergeSort(arr, 6);
+	Print(arr, 6);
 	
 	ShellSort(arr, 6);
 	
