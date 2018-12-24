@@ -18,7 +18,7 @@ void BubleSort(int arr[], int len)
 {
 	for(int i = 0; i < len - 1; i++)
 	{
-		for(int j = 0; j < len - i; j++)
+		for(int j = 0; j < len - i - 1; j++)
 		{
 			if(arr[j] > arr[j + 1])
 			{
@@ -283,6 +283,42 @@ void ShellSortT(int arr[], int len)
 	}while(increment > 1);
 }
 
+/*2018.12.24*/
+void ShellSort_1224(int arr[], int len)
+{
+	if(len <= 0)
+	{
+		return;
+	}
+	
+	int increment = len;
+	do
+	{
+		increment = increment / 3 + 1;
+		
+		for(int i = increment; i < len; i++)
+		{
+			int temp = arr[i];
+			int j = i - increment;
+			while(j >= 0)
+			{
+				if(temp < arr[j])
+				{
+					arr[j + increment] = arr[j];
+				}
+				else
+				{
+					break;
+				}
+				
+				j = j - increment;
+			}
+			
+			arr[j + increment] = temp;
+		}
+	
+	}while(increment > 1);
+}
 
 //选择排序
 void SelectSort(int arr[], int len)
@@ -474,6 +510,149 @@ public:
 };
 
 
+
+
+
+void merge(int arr[], int left, int mid, int right, int temp[])
+{
+	int i = left;
+	int j = mid + 1;
+	int t = 0;
+	
+	while(i <= mid && j <= right)
+	{
+		if(arr[i] < arr[j])
+		{
+			temp[t++] = arr[i++];
+		}
+		else
+		{
+			temp[t++] = arr[j++];
+		}
+	}
+	
+	while(i <= mid)
+	{
+		temp[t++] = arr[i++];
+	}
+	
+	while(j <= right)
+	{
+		temp[t++] = arr[j++];
+	}
+	
+	t = 0;
+	while(left <= right)
+	{
+		arr[left++] = temp[t++];
+	}
+}
+
+void ssort(int arr[], int left, int right, int temp[])
+{
+	if(left >= right)
+	{
+		return;
+	}
+	
+	int mid = (left + right) / 2;
+	ssort(arr, left, mid, temp);
+	ssort(arr, mid + 1, right, temp);
+	merge(arr, left, mid, right, temp);
+	
+}
+
+void MergeSortT(int arr[], int len)
+{
+	if(len < 1)
+	{
+		return;
+	}
+	
+	int temp[len];
+	ssort(arr, 0, len - 1, temp);
+	
+}
+
+void Qsort(int a[], int low, int high)
+{
+    if(low >= high)
+    {
+        return;
+    }
+    int first = low;
+    int last = high;
+    int key = a[first];/*用字表的第一个记录作为枢轴*/
+	
+    while(first < last)
+    {
+        while(first < last && a[last] >= key)
+        {
+            --last;
+        }
+		
+        a[first] = a[last];/*将比第一个小的移到低端*/
+		
+        while(first < last && a[first] <= key)
+        {
+            ++first;
+        }
+		
+        a[last] = a[first];    
+		/*将比第一个大的移到高端*/
+    }
+    a[first] = key;/*枢轴记录到位*/
+    Qsort(a, low, first-1);
+    Qsort(a, first+1, high);
+}
+
+
+void QuickSort(int arr[], int left, int right)
+{
+	if(left >= right)
+	{
+		return;
+	}
+	
+	int i = left;
+	int j = right;
+	
+	int key = arr[left];
+	
+	while(i < j)
+	{
+		while(i < j && arr[j] >= key)
+		{
+			j--;
+		}
+		
+		arr[i] = arr[j];
+		
+		while(i < j && arr[i] <= key)
+		{
+			i++;
+		}
+		
+		arr[j] = arr[i];
+	}
+	
+	arr[i] = key;
+
+	QuickSort(arr, left, i - 1);
+	QuickSort(arr, left + 1, right);
+	
+}
+
+void sort(int arr[], int len)
+{
+	if(len <= 0)
+	{
+		return;
+	}
+	
+	QuickSort(arr, 0, len - 1);
+}
+
 int main()
 {
 	int arr[] = {8, 6, 4, 7, 9, 5};
@@ -481,10 +660,14 @@ int main()
 	//InsertSortT(arr, 5);
 	//SelectSortT(arr, 6);
 	//ShellSortT(arr, 6);
-	MergeSort(arr, 6);
+	//MergeSort(arr, 6);
 	Print(arr, 6);
 	
-	ShellSort(arr, 6);
+	//ShellSort_1224(arr, 6);
+	
+	MergeSortT(arr, 6);
+	
+	//ShellSort(arr, 6);
 	
 	Solution sol;
 	string str1 = "ababc";
